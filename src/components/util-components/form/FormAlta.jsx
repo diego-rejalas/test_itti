@@ -3,7 +3,6 @@ import { Form, Input, Button, Row, Col, Checkbox, Modal } from 'antd';
 import todoService from '../../../axios/Todo';
 import { validateTitle, validateCheckbox } from './validators';
 
-
 const AltaForm = ({ visible, onClose }) => {
 
   const [form] = Form.useForm();
@@ -60,7 +59,7 @@ const AltaForm = ({ visible, onClose }) => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" style={{ backgroundColor: '#002140'}}>
+              <Button type="primary" htmlType="submit" style={{ backgroundColor: '#002140' }}>
                 Agregar
               </Button>
             </Form.Item>

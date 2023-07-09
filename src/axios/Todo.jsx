@@ -38,7 +38,7 @@ todoService.updatingResource = async (values) => {
         data: values,
     })
         .then((response) => {
-            message.success('Se Agrego Correctamente!');
+            message.success('Se Modificó Correctamente!');
             return response.data
         })
         .catch((err) => {

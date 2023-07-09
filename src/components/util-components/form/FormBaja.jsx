@@ -64,16 +64,14 @@ const BajaForm = ({ visible, onClose }) => {
             >
               <Checkbox />
             </Form.Item>
-
             <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ backgroundColor: '#002140'}}>
+              <Button type="primary" htmlType="submit" style={{ backgroundColor: '#002140' }}>
                 Agregar
               </Button>
             </Form.Item>
           </Form>
         </Col>
       </Row>
-
     </Modal>
   );
 };

@@ -13,8 +13,6 @@ export const validateTitle = (_, value) => {
     return Promise.resolve();
 };
 
-
-
 export const validateCheckbox = (_, value) => {
     if (!value) {
         return Promise.reject('Debe seleccionar el estado');

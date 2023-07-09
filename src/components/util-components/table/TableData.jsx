@@ -10,7 +10,6 @@ import AltaButton from '../button/AltaButton';
 import BajaButton from '../button/BajaButton';
 import DeleteConfirmationModal from '../modal/DeleteConfirmationModal';
 import '../../../Table.css';
-import { useStore } from '../../../zustand/store';
 
 const { Option } = Select;
 
@@ -66,14 +65,13 @@ const TableData = () => {
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [formData, setFormData] = useState({});
-
-  const tableData = useStore(state => state.resources);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const todos = await todoService.listingAllResources();
-
+        setTableData(todos);
         setList(todos);
       } catch (error) {
         console.error('Error:', error);
@@ -81,7 +79,6 @@ const TableData = () => {
     };
     fetchData();
   }, []);
-
 
   const handleTypeChange = (value) => {
     setSelectedType(value);
@@ -153,14 +150,14 @@ const TableData = () => {
   return (
     <Card style={{ width: '100%', maxWidth: '100%', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }}>
       <Row gutter={[24, 8]} style={{ marginBottom: 20 }}>
-        <Col span={2}>
+        <Col span={2.5}>
           <AltaButton onClick={() => setIsAltaFormVisible(true)} Col={Col} />
         </Col>
         <Col span={2.5} >
           <BajaButton onClick={() => setIsBajaFormVisible(true)} Col={Col} />
 
         </Col>
-        <Col span={2.5} offset={12}>
+        <Col span={2.5} offset={8}>
           <Input placeholder="Buscar" prefix={<SearchOutlined />}
             onChange={(e) => utils.onSearch(e, list, setList, tableData)} />
         </Col>

@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import {ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const DeleteConfirmationModal = ({ visible, onCancel, onOk, confirmLoading }) => {
   return (

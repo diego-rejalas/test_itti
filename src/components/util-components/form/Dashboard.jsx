@@ -47,7 +47,7 @@ export default function Dashboard() {
                         prefix={<ArrowUpOutlined />}
                         suffix="%"
 
-                      
+
                     />
                 </Card>
             </Col>
