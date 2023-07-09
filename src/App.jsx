@@ -6,7 +6,6 @@ import SideNav from './components/layout-components/SideNav';
 import AppContent from './components/layout-components/AppContent';
 
 const App = () => {
-
   return (
     <Router>
       <Layout style={{ minHeight: '100vh' }}>
