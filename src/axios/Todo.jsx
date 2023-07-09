@@ -15,8 +15,6 @@ todoService.listingAllResources = async () => {
 
 todoService.creatingResource = async (values) => {
 
-    console.log("creatingResource: ", values)
-
     return await axios({
         method: "post",
         url: `https://jsonplaceholder.typicode.com/todos`,
@@ -33,7 +31,6 @@ todoService.creatingResource = async (values) => {
 };
 
 todoService.updatingResource = async (values) => {
-    console.log("updatingResource: ", values)
 
     return await axios({
         method: "post",
@@ -51,7 +48,7 @@ todoService.updatingResource = async (values) => {
 };
 
 todoService.deletingResource = async (id) => {
-    console.log("deletingResource: ", id)
+
     return await axios({
         method: "delete",
         url: `https://jsonplaceholder.typicode.com/todos/${id}`,
