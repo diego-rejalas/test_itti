@@ -10,6 +10,7 @@ import AltaButton from '../button/AltaButton';
 import BajaButton from '../button/BajaButton';
 import DeleteConfirmationModal from '../modal/DeleteConfirmationModal';
 import '../../../Table.css';
+import { useStore } from '../../../zustand/store';
 
 const { Option } = Select;
 
@@ -19,28 +20,25 @@ const TableData = () => {
       title: 'id',
       dataIndex: 'id',
       key: 'id',
-      align: 'center'
+      align: 'center',
     },
     {
       title: 'userId',
       dataIndex: 'userId',
       key: 'userId',
-      align: 'center'
-
+      align: 'center',
     },
     {
       title: 'Título',
       dataIndex: 'title',
       key: 'title',
-      align: 'center'
-
+      align: 'center',
     },
     {
       title: 'Estado',
       dataIndex: 'completed',
       key: 'completed',
       align: 'center',
-
       render: (text) => (text ? <span>Completos</span> : <span>No completos</span>),
     },
     {
@@ -65,13 +63,13 @@ const TableData = () => {
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [formData, setFormData] = useState({});
-  const [tableData, setTableData] = useState([]);
+
+  const tableData = useStore((state) => state.resources);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const todos = await todoService.listingAllResources();
-        setTableData(todos);
         setList(todos);
       } catch (error) {
         console.error('Error:', error);
@@ -131,17 +129,15 @@ const TableData = () => {
 
   const handleCloseDeleteModal = () => {
     setIsDeleteModalVisible(false);
-    setConfirmLoading(false)
+    setConfirmLoading(false);
     setDeleteItemId(null);
-
   };
 
   const handleDelete = async () => {
-    setConfirmLoading(true)
+    setConfirmLoading(true);
     try {
       await todoService.deletingResource(deleteItemId);
       handleCloseDeleteModal();
-
     } catch (error) {
       console.error(error);
     }
@@ -153,18 +149,25 @@ const TableData = () => {
         <Col span={2.5}>
           <AltaButton onClick={() => setIsAltaFormVisible(true)} Col={Col} />
         </Col>
-        <Col span={2.5} >
+        <Col span={2.5}>
           <BajaButton onClick={() => setIsBajaFormVisible(true)} Col={Col} />
+        </Col>
 
+      </Row>
+
+      <Row gutter={[24, 8]} style={{ marginBottom: 20 }}>
+
+        <Col span={2.5}  >
+          <Input
+            placeholder="Buscar"
+            prefix={<SearchOutlined />}
+            onChange={(e) => utils.onSearch(e, list, setList, tableData)}
+          />
         </Col>
-        <Col span={2.5} offset={8}>
-          <Input placeholder="Buscar" prefix={<SearchOutlined />}
-            onChange={(e) => utils.onSearch(e, list, setList, tableData)} />
-        </Col>
-        <Col>
+        <Col span={2.5}>
           <Select
             placeholder="Select type"
-            style={{ width: 120 }}
+            style={{ marginLeft: 10, width: 120 }}
             onChange={handleTypeChange}
             value={selectedType}
           >
@@ -172,12 +175,12 @@ const TableData = () => {
             <Option value={true}>Completos</Option>
             <Option value={false}>No completos</Option>
           </Select>
+
         </Col>
       </Row>
       <Row>
         <Col span={24}>
           <Table
-
             rowClassName={rowClassName}
             columns={columns}
             dataSource={list}
@@ -203,11 +206,12 @@ const TableData = () => {
         />
       )}
 
-      <DeleteConfirmationModal visible={isDeleteModalVisible}
+      <DeleteConfirmationModal
+        visible={isDeleteModalVisible}
         onCancel={handleCloseDeleteModal}
         onOk={handleDelete}
-        confirmLoading={confirmLoading} />
-
+        confirmLoading={confirmLoading}
+      />
     </Card>
   );
 };
